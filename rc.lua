@@ -190,16 +190,16 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "j",   awful.tag.viewprev       ),
-    awful.key({ modkey,           }, "k",  awful.tag.viewnext       ),
+    awful.key({ modkey,		  }, "Left",   awful.tag.viewprev       ),
+    awful.key({ modkey, 	  }, "Right",   awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
-    awful.key({ modkey,           }, "Left",
+    awful.key({ modkey, "Control" }, "j",
         function ()
             awful.client.focus.byidx( -1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "Right",
+    awful.key({ modkey, "Control" }, "k",
         function ()
             awful.client.focus.byidx( 1)
             if client.focus then client.focus:raise() end
@@ -209,8 +209,8 @@ globalkeys = awful.util.table.join(
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "Left", function () awful.client.swap.byidx( -1)    end),
     awful.key({ modkey, "Shift"   }, "Right", function () awful.client.swap.byidx(  1)    end),
-    awful.key({ modkey, "Control" }, "Left", function () awful.screen.focus_relative( 1) end),
-    awful.key({ modkey, "Control" }, "Right", function () awful.screen.focus_relative(-1) end),
+    awful.key({ modkey, 	  }, "j", function () awful.screen.focus_relative( 1) end),
+    awful.key({ modkey,		  }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "Tab",
         function ()
