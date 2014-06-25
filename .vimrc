@@ -18,6 +18,8 @@ noremap h i
 set smartindent
 nnoremap d "_d
 vnoremap d "_d
+nnoremap x "_x
+vnoremap x "_x
 if $COLORTERM == 'gnome-terminal'
   set t_Co=256
 endif
