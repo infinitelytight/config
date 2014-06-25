@@ -26,3 +26,6 @@ ext () {
        echo "'$1' is not a valid file!"
    fi
  }
+f () { 
+	ack -i --ignore-dir=.target --ignore-dir=target -A 2 -B 2 "$*" --color-lineno="magenta" --color-filename="green on_black" --color-match="black on_red"
+}
