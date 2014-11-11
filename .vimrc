@@ -25,7 +25,7 @@ cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W')
 cnoreabbrev <expr> Q ((getcmdtype() is# ':' && getcmdline() is# 'Q')?('q'):('Q'))
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set backspace=indent,eol,start
-colorscheme molokai
+
 " I haven't found how to hide this function (yet)
 function! RestoreRegister()
   let @" = s:restore_reg
@@ -42,4 +42,6 @@ vnoremap <silent> <expr> p <sid>Repl()
 set shortmess+=A
 map <F8> : !gcc % && ./a.out <CR>
 map <F9> :w <CR>
-imap so<Tab> System.out.println("");<Left><Left><Left>
+colorscheme molokai
+set guioptions=aegimrLt
+nmap oo o<Esc>k
