@@ -1,30 +1,63 @@
 syntax on
 filetype plugin indent on
+execute pathogen#infect()
 set autoindent
+set autoread
 set mouse=a
 set nocompatible
-autocmd vimenter * NERDTree
 set number
-execute pathogen#infect()
-let g:nerdtree_tabs_open_on_console_startup=1
-nnoremap \f :FufFile<CR>
 set backupdir=~/.tmp
 set swapfile
 set dir=~/.tmp
-set completeopt-=preview
+set smartindent
+set wildmenu
+set history=50
 map i <Up>
 map j <Left>
 map k <Down>
 noremap h i
-set smartindent
 nnoremap d "_d
 vnoremap d "_d
 nnoremap x "_x
 vnoremap x "_x
-cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
-cnoreabbrev <expr> Q ((getcmdtype() is# ':' && getcmdline() is# 'Q')?('q'):('Q'))
+nnoremap s "_s
+vnoremap s "_s
+inoremap <C-l> <Del>
+set shortmess+=A
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set backspace=indent,eol,start
+set incsearch
+set scrolloff=3
+set guioptions=aegimt
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd Filetype ruby setlocal ts=2 sts=2 sw=2 expandtab
+autocmd BufNewFile,BufRead *.html.erb set ts=2 sts=2 sw=2 expandtab
+
+colorscheme molokai 
+set listchars=tab:\|\ 
+set list
+
+" Use buffers as tabs
+set hidden
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+noremap gt :bnext<ENTER>
+noremap gT :bprevious<ENTER>
+cnoreabbrev W w
+cnoreabbrev Q bd
+cnoreabbrev q bd
+
+" Switch cursor based on mode
+if has("autocmd")
+  au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
+  au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+  au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
+endif
+
+map <C-n> :NERDTreeToggle<CR>
 
 " I haven't found how to hide this function (yet)
 function! RestoreRegister()
@@ -39,9 +72,9 @@ endfunction
 
 " NB: this supports "rp that replaces the selection by the contents of @r
 vnoremap <silent> <expr> p <sid>Repl()
-set shortmess+=A
-map <F8> : !gcc % && ./a.out <CR>
-map <F9> :w <CR>
-colorscheme molokai
-set guioptions=aegimrLt
-nmap oo o<Esc>k
+
+" You complete me
+"let g:loaded_youcompleteme = 1
+"let g:ycm_filetype_blacklist = { 'ruby' : 1, 'eruby' : 1 }
+"let g:ycm_min_num_identifier_candidate_chars = 6
+
