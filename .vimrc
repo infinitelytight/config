@@ -29,11 +29,16 @@ set backspace=indent,eol,start
 set incsearch
 set scrolloff=3
 set guioptions=aegimt
+set shiftwidth=4 tabstop=4
+autocmd FileType java setlocal shiftwidth=4 tabstop=4
+autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2 expandtab
-autocmd BufNewFile,BufRead *.html.erb set ts=2 sts=2 sw=2 expandtab
+autocmd Filetype eruby setlocal ts=2 sts=2 sw=2 expandtab
 
 colorscheme molokai 
+hi MatchParen cterm=bold ctermbg=none ctermfg=green
 set listchars=tab:\|\ 
 set list
 
@@ -57,7 +62,11 @@ if has("autocmd")
   au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
 endif
 
-map <C-n> :NERDTreeToggle<CR>
+nmap <silent> <C-n> :call g:WorkaroundNERDTreeToggle()<CR>
+
+function! g:WorkaroundNERDTreeToggle()
+  try | NERDTreeToggle | catch | silent! NERDTree | endtry
+endfunction
 
 " I haven't found how to hide this function (yet)
 function! RestoreRegister()
@@ -78,3 +87,4 @@ vnoremap <silent> <expr> p <sid>Repl()
 "let g:ycm_filetype_blacklist = { 'ruby' : 1, 'eruby' : 1 }
 "let g:ycm_min_num_identifier_candidate_chars = 6
 
+let g:SuperTabDefaultCompletionType = "<c-n>"
