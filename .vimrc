@@ -32,8 +32,8 @@ set guioptions=aegimt
 set shiftwidth=4 tabstop=4
 autocmd FileType java setlocal shiftwidth=4 tabstop=4
 autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
-autocmd FileType html setlocal shiftwidth=2 tabstop=2
-autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd FileType html setlocal ts=2 sw=2 expandtab
+au BufReadPost *.hbs set syntax=html ts=2 sw=2 expandtab
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype eruby setlocal ts=2 sts=2 sw=2 expandtab
 
