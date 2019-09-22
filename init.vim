@@ -10,6 +10,10 @@ call plug#begin('~/.local/share/nvim/plugged')
      \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
      \ 'AcceptSelection("t")': ['<cr>'],
      \ }
+  let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg)$',
+  \ 'file': '\v\.(class|dll)$',
+  \ }
 
   Plug 'scrooloose/nerdtree'
   function! ToggleNERDTreeFind()
@@ -50,6 +54,14 @@ call plug#begin('~/.local/share/nvim/plugged')
   endfunction
   inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 
+  " Java
+  Plug 'dansomething/vim-eclim'
+  " Clojure
+  Plug 'tpope/vim-fireplace'
+  " R
+  Plug 'jalvesaq/Nvim-R'
+
+  " map ]] :%Eval<cr>
 call plug#end()
 
 set hidden
@@ -70,6 +82,7 @@ set history=100
 set scrolloff=3
 set splitbelow
 set nohlsearch
+set termguicolors
 
 colorscheme molokai 
 hi MatchParen cterm=bold ctermbg=none ctermfg=green
@@ -92,9 +105,8 @@ filetype plugin indent on
                                  set shiftwidth=2 tabstop=2 expandtab
 autocmd FileType java       setlocal shiftwidth=4 tabstop=4 noexpandtab
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab
-autocmd FileType python     setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType python     setlocal shiftwidth=4 tabstop=4 expandtab
 autocmd FileType html       setlocal shiftwidth=2 tabstop=2 expandtab colorcolumn=120
 autocmd FileType css        setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType ruby       setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType eruby      setlocal shiftwidth=2 tabstop=2 expandtab
-
