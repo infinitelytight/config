@@ -1,6 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
   Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
@@ -56,12 +57,24 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   " Java
   Plug 'dansomething/vim-eclim'
+
   " Clojure
   Plug 'tpope/vim-fireplace'
+
   " R
   Plug 'jalvesaq/Nvim-R'
+  let g:R_assign = 0
 
-  " map ]] :%Eval<cr>
+  " Haskell
+  Plug 'neovimhaskell/haskell-vim'
+
+  " Latex
+  Plug 'xuhdev/vim-latex-live-preview'
+
+  " Theme
+  Plug 'NLKNguyen/papercolor-theme'
+
+  map ]] <Esc>:w<CR>:!runghc %:p<CR>
 call plug#end()
 
 set hidden
@@ -76,21 +89,30 @@ set list
 set listchars=tab:│\ ,extends:›,precedes:‹,trail:·
 set autoread
 set number
-set colorcolumn=80
+set colorcolumn=81
+set textwidth=80
+set wrap
+set linebreak
 set mouse=a
-set history=100
-set scrolloff=3
+set history=200
+set scrolloff=5
 set splitbelow
 set nohlsearch
 set termguicolors
+au FileType * set fo-=c fo-=r fo-=o
 
-colorscheme molokai 
-hi MatchParen cterm=bold ctermbg=none ctermfg=green
+" Theme
+" colorscheme molokai
+" hi MatchParen cterm=bold ctermbg=none ctermfg=green
+set background=light
+colorscheme PaperColor
+let g:airline_theme='papercolor'
 
 map i <Up>
 map j <Left>
 map k <Down>
 noremap h i
+" noremap G Gzz
 
 " Don't overwrite register when pasting
 nnoremap d "_d
@@ -101,12 +123,23 @@ nnoremap s "_s
 vnoremap s "_s
 xnoremap p "_dP
 
+" Spell check shortcut
+map <F5> :setlocal spell! spelllang=en_gb<CR>
+
 filetype plugin indent on
-                                 set shiftwidth=2 tabstop=2 expandtab
-autocmd FileType java       setlocal shiftwidth=4 tabstop=4 noexpandtab
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab
-autocmd FileType python     setlocal shiftwidth=4 tabstop=4 expandtab
-autocmd FileType html       setlocal shiftwidth=2 tabstop=2 expandtab colorcolumn=120
-autocmd FileType css        setlocal shiftwidth=2 tabstop=2 expandtab
-autocmd FileType ruby       setlocal shiftwidth=2 tabstop=2 expandtab
-autocmd FileType eruby      setlocal shiftwidth=2 tabstop=2 expandtab
+                                 set sw=2 ts=2 et
+
+autocmd FileType java       setlocal sw=4 ts=4 noexpandtab
+autocmd FileType haskell    setlocal sw=4 ts=4 et
+autocmd FileType python     setlocal sw=4 ts=4 et
+autocmd FileType html       setlocal sw=2 ts=2 et cc=120
+
+" Default
+" autocmd FileType css        setlocal sw=2 ts=2 et
+" autocmd FileType javascript setlocal sw=2 ts=2 et
+" autocmd FileType ruby       setlocal sw=2 ts=2 et
+" autocmd FileType eruby      setlocal sw=2 ts=2 et
+" autocmd FileType clojure    setlocal sw=2 ts=2 et
+
+let g:tex_flavor = "latex"
+autocmd FileType tex        setlocal sw=2 ts=2 et cc=71 tw=70
