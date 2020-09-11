@@ -6,11 +6,6 @@ call plug#begin('~/.local/share/nvim/plugged')
   let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
   Plug 'ctrlpvim/ctrlp.vim'
-  " Open ctrl-p files in new tabs
-  let g:ctrlp_prompt_mappings = {
-     \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
-     \ 'AcceptSelection("t")': ['<cr>'],
-     \ }
   let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg)$',
   \ 'file': '\v\.(class|dll)$',
@@ -70,13 +65,26 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   " Latex
   Plug 'xuhdev/vim-latex-live-preview'
+  let g:livepreview_engine = 'xelatex'
 
   " Theme
   Plug 'NLKNguyen/papercolor-theme'
+  " More contrast (color00 = bg, color05 = comments, color07 = text)
+  let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.light': {
+  \       'override' : {
+  \         'color00' : ['#eeeeee', ''],
+  \         'color05' : ['#555555', ''],
+  \         'color07' : ['#111111', ''],
+  \       }
+  \     }
+  \   }
+  \ }
 
-  map ]] <Esc>:w<CR>:!runghc %:p<CR>
 call plug#end()
 
+" Buffers
 set hidden
 map gb :bnext<cr>
 map gB :bprevious<cr>
@@ -89,8 +97,6 @@ set list
 set listchars=tab:│\ ,extends:›,precedes:‹,trail:·
 set autoread
 set number
-set colorcolumn=81
-set textwidth=80
 set wrap
 set linebreak
 set mouse=a
@@ -99,6 +105,10 @@ set scrolloff=5
 set splitbelow
 set nohlsearch
 set termguicolors
+set nojoinspaces
+set formatoptions+=a
+
+" Disable autocommenting on new lines
 au FileType * set fo-=c fo-=r fo-=o
 
 " Theme
@@ -108,6 +118,7 @@ set background=light
 colorscheme PaperColor
 let g:airline_theme='papercolor'
 
+" Navigation
 map i <Up>
 map j <Left>
 map k <Down>
@@ -123,23 +134,23 @@ nnoremap s "_s
 vnoremap s "_s
 xnoremap p "_dP
 
-" Spell check shortcut
+filetype plugin indent on
+
 map <F5> :setlocal spell! spelllang=en_gb<CR>
 
-filetype plugin indent on
-                                 set sw=2 ts=2 et
+" Use defaults for css, javascript, ruby, eruby, clojure
+set colorcolumn=81
+set textwidth=80
+set shiftwidth=2
+set tabstop=2
+set expandtab
 
+" Override for
 autocmd FileType java       setlocal sw=4 ts=4 noexpandtab
-autocmd FileType haskell    setlocal sw=4 ts=4 et
-autocmd FileType python     setlocal sw=4 ts=4 et
-autocmd FileType html       setlocal sw=2 ts=2 et cc=120
-
-" Default
-" autocmd FileType css        setlocal sw=2 ts=2 et
-" autocmd FileType javascript setlocal sw=2 ts=2 et
-" autocmd FileType ruby       setlocal sw=2 ts=2 et
-" autocmd FileType eruby      setlocal sw=2 ts=2 et
-" autocmd FileType clojure    setlocal sw=2 ts=2 et
+autocmd FileType haskell    setlocal sw=4 ts=4
+autocmd FileType python     setlocal sw=4 ts=4
+autocmd FileType markdown   setlocal sw=4 ts=4 cc=71 tw=70
+autocmd FileType html       setlocal cc=120 tw=70
 
 let g:tex_flavor = "latex"
-autocmd FileType tex        setlocal sw=2 ts=2 et cc=71 tw=70
+autocmd FileType tex        setlocal cc=71 tw=70
